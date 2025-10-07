@@ -4,13 +4,15 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -Iinclude
 SRC_DIR = src
 OBJ_DIR = obj
 
-OBJS = $(OBJ_DIR)/myArray.o \
-       $(OBJ_DIR)/myStack.o \
-       $(OBJ_DIR)/myQueue.o \
-       $(OBJ_DIR)/mySinglyLinkedList.o \
-       $(OBJ_DIR)/myDoublyLinkedList.o \
-	   $(OBJ_DIR)/myAVLTree.o \
-       $(OBJ_DIR)/main.o 
+SRCS = $(SRC_DIR)/myArray.cpp \
+       $(SRC_DIR)/myStack.cpp \
+       $(SRC_DIR)/myQueue.cpp \
+       $(SRC_DIR)/mySinglyLinkedList.cpp \
+       $(SRC_DIR)/myDoublyLinkedList.cpp \
+       $(SRC_DIR)/myAVLTree.cpp \
+       main.cpp
+
+OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(notdir $(SRCS)))
 
 TARGET = dbms
 
@@ -22,7 +24,6 @@ $(TARGET): $(OBJS)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# отдельное правило для main.cpp (лежит не в src/)
 $(OBJ_DIR)/main.o: main.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
