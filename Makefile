@@ -1,28 +1,32 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -Iinclude
+
+SRC_DIR = src
+OBJ_DIR = obj
+
+OBJS = $(OBJ_DIR)/myArray.o \
+       $(OBJ_DIR)/myStack.o \
+       $(OBJ_DIR)/myQueue.o \
+       $(OBJ_DIR)/mySinglyLinkedList.o \
+       $(OBJ_DIR)/myDoublyLinkedList.o \
+       $(OBJ_DIR)/main.o
+
 TARGET = dbms
 
-OBJDIR = obj
-INCLUDES = -Iinclude
+all: $(TARGET)
 
-SOURCES = src/myArray.cpp src/myStack.cpp src/myQueue.cpp src/mySinglyLinkedList.cpp main.cpp
-OBJECTS = $(OBJDIR)/myArray.o $(OBJDIR)/myStack.o $(OBJDIR)/myQueue.o $(OBJDIR)/mySinglyLinkedList.o $(OBJDIR)/main.o
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
 
-all: $(OBJDIR) $(TARGET)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
+# отдельное правило для main.cpp (лежит не в src/)
+$(OBJ_DIR)/main.o: main.cpp | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-
-$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -rf $(OBJDIR) $(TARGET)
-
-.PHONY: all clean
+	rm -rf $(OBJ_DIR) $(TARGET)

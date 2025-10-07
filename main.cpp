@@ -5,13 +5,14 @@
 #include "myStack.h"
 #include "myQueue.h"
 #include "mySinglyLinkedList.h"
+#include "myDoublyLinkedList.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
     if(argc < 5) 
     {
-        cerr << "Usage: ./dbms --file file.data --query 'COMMAND'" << endl;
+        cerr << "Usage: ./dbms --file file.data --query 'cmd'" << endl;
         return 1;
     }
 
@@ -131,10 +132,51 @@ int main(int argc, char* argv[]) {
             SL_list list;
             loadFromFileSL(list, filename);
             printSL(list);
+        } else if(cmd == "ADDHEADDL") {
+            string value;
+            ss >> value;
+            DL_list list;
+            addHeadDL(list, value, filename);
+        } else if(cmd == "ADDTAILDL") {
+            string value;
+            ss >> value;
+            DL_list list;
+            addTailDL(list, value, filename);
+        } else if(cmd == "ADDAFTERDL") {
+            int index;
+            string value;
+            ss >> index >> value;
+            DL_list list;
+            addAfterDL(list, index, value, filename);
+        } else if(cmd == "ADDBEFOREDL") {
+            int index;
+            string value;
+            ss >> index >> value;
+            DL_list list;
+            addBeforeDL(list, index, value, filename);
+        } else if(cmd == "PRINTDL") {
+            DL_list list;
+            loadFromFileDL(list, filename);
+            printDL(list);
+        } else if(cmd == "BPRINTDL") {  // печать в обратном порядке
+            DL_list list;
+            loadFromFileDL(list, filename);
+            backwardsPrintDL(list);
+        } else if(cmd == "SEARCHBYVALUEDL") {
+            string value;
+            ss >> value;
+            DL_list list;
+            int idx = searchByValueDL(list, value, filename);
+            cout << idx << endl;
+        } else if(cmd == "DELETEBYVALUEDL") {
+            string value;
+            ss >> value;
+            DL_list list;
+            removeByValueDL(list, value, filename);
         }
 
         else {
-            cerr << "Unknown command: " << cmd << endl;
+            cerr << "Unknown cmd: " << cmd << endl;
             return 1;
         }
     } catch(exception& e) {
