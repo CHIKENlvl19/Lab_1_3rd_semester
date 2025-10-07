@@ -3,13 +3,13 @@
 #include <string>
 using namespace std;
 
-struct Node {
+struct NodeStack {
     string value;
-    Node* next;
+    NodeStack* next;
 };
 
 struct Stack {
-    Node* head;
+    NodeStack* head;
     int size;
 
     Stack();

@@ -13,7 +13,7 @@ Stack::Stack() : head(nullptr), size(0) {}
 
 Stack::Stack(const Stack& other) : head(nullptr), size(0) {
     vector<string> buf;
-    Node* cur = other.head;
+    NodeStack* cur = other.head;
     while(cur)
     {
         buf.push_back(cur->value); cur = cur->next;
@@ -21,7 +21,7 @@ Stack::Stack(const Stack& other) : head(nullptr), size(0) {
 
     for(int i = (int)buf.size() - 1; i >= 0; --i) 
     {
-        Node* n = new Node{buf[i], head};
+        NodeStack* n = new NodeStack{buf[i], head};
         head = n;
         size++;
     }
@@ -31,7 +31,7 @@ Stack& Stack::operator=(const Stack& other) {
     if(this == &other) return *this;
     clean();
     vector<string> buf;
-    Node* cur = other.head;
+    NodeStack* cur = other.head;
 
     while(cur)
     {
@@ -40,7 +40,7 @@ Stack& Stack::operator=(const Stack& other) {
 
     for(int i = (int)buf.size() - 1; i >= 0; --i) 
     {
-        Node* n = new Node{buf[i], head};
+        NodeStack* n = new NodeStack{buf[i], head};
         head = n;
         size++;
     }
@@ -50,7 +50,7 @@ Stack& Stack::operator=(const Stack& other) {
 void Stack::clean() {
     while(head) 
     {
-        Node* tmp = head;
+        NodeStack* tmp = head;
         head = head->next;
         delete tmp;
     }
@@ -80,7 +80,7 @@ void loadFromFile(Stack& myStack, const string& filename) {
     myStack.clean();
     for(int i = (int)lines.size() - 1; i >= 0; --i) 
     {
-        Node* n = new Node{lines[i], myStack.head};
+        NodeStack* n = new NodeStack{lines[i], myStack.head};
         myStack.head = n;
         myStack.size++;
     }
@@ -93,7 +93,7 @@ void saveToFile(const Stack& myStack, const string& filename) {
         throw runtime_error("Cannot open stack file for writing: " + filename);
     }
 
-    Node* cur = myStack.head;
+    NodeStack* cur = myStack.head;
     while(cur) 
     {
         out << cur->value << "\n";
@@ -111,8 +111,8 @@ void push(Stack& myStack, const string& value, const string& filename) {
         throw overflow_error("Error: stack is full! Overflow might happen.");
     }
 
-    Node* newNode = new Node{value, myStack.head};
-    myStack.head = newNode;
+    NodeStack* newNodeStack = new NodeStack{value, myStack.head};
+    myStack.head = newNodeStack;
     myStack.size += 1;
 
     saveToFile(myStack, filename);
@@ -126,7 +126,7 @@ void pop(Stack& myStack, const string& filename) {
         throw underflow_error("Error: stack is empty! Nothing to delete.");
     }
 
-    Node* toDelete = myStack.head;
+    NodeStack* toDelete = myStack.head;
     myStack.head = myStack.head->next;
     delete toDelete;
     myStack.size -= 1;
@@ -141,7 +141,7 @@ void print(Stack& myStack) {
         return;
     }
 
-    Node* current = myStack.head;
+    NodeStack* current = myStack.head;
     cout << "nullptr";
     while(current != nullptr) 
     {
