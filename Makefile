@@ -9,7 +9,8 @@ OBJS = $(OBJ_DIR)/myArray.o \
        $(OBJ_DIR)/myQueue.o \
        $(OBJ_DIR)/mySinglyLinkedList.o \
        $(OBJ_DIR)/myDoublyLinkedList.o \
-       $(OBJ_DIR)/main.o
+	   $(OBJ_DIR)/myAVLTree.o \
+       $(OBJ_DIR)/main.o 
 
 TARGET = dbms
 
