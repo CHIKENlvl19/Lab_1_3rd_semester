@@ -145,10 +145,12 @@ NodeAVL* insertAVL(NodeAVL* root, int value) {
     if(value < root->data)
     {
         root->left = insertAVL(root->left, value);
+        return balanceAVL(root);
     }
     else if(value > root->data)
     {
         root->right = insertAVL(root->right, value);
+        return balanceAVL(root);
     }
     else
     {
@@ -174,11 +176,13 @@ NodeAVL* deleteNodeAVL(NodeAVL* root, int value) {
     if(value < root->data)
     {
         root->left = deleteNodeAVL(root->left, value);
+        return balanceAVL(root);
     }
 
     else if(value > root->data)
     {
         root->right = deleteNodeAVL(root->right, value);
+        return balanceAVL(root);
     }
     else 
     {

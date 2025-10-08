@@ -16,7 +16,7 @@ struct myArray {
     void clean();
 };
 
-void loadFromFile(myArray& arr, const string& filename);
+void loadFromFileA(myArray& arr, const string& filename);
 void saveToFile(const myArray& arr, const string& filename);
 
 void push_back(myArray& arr, string value, const string& filename);

@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void loadFromFile(myArray& arr, const string& filename) {
+void loadFromFileA(myArray& arr, const string& filename) {
     ifstream in(filename);
     if(!in.is_open()) 
     {
@@ -108,7 +108,7 @@ myArray::~myArray() {
 }
 
 void push_back(myArray& arr, string value, const string& filename) {
-    loadFromFile(arr, filename);
+    loadFromFileA(arr, filename);
 
     if(arr.size >= arr.capacity) 
     {
@@ -130,7 +130,7 @@ void push_back(myArray& arr, string value, const string& filename) {
 }
 
 void insert(myArray& arr, int index, string value, const string& filename) {
-    loadFromFile(arr, filename);
+    loadFromFileA(arr, filename);
 
     if (index < 0 || index > arr.size) {
         throw out_of_range("Error: inserting failed due to invalid index.");
@@ -155,7 +155,7 @@ void insert(myArray& arr, int index, string value, const string& filename) {
 }
 
 string getElement(const myArray& arr, int index) {
-    if(index < 0 || index >= arr.size)
+    if(index < 0)
     {
         throw out_of_range("Error: getting an element failed due to invalid index.");
     }
@@ -163,7 +163,7 @@ string getElement(const myArray& arr, int index) {
 }
 
 void Delete(myArray& arr, int index, const string& filename) {
-    loadFromFile(arr, filename);
+    loadFromFileA(arr, filename);
 
     if(index < 0 || index >= arr.size)
     {
@@ -180,7 +180,7 @@ void Delete(myArray& arr, int index, const string& filename) {
 }
 
 void swapElements(myArray& arr, int index, string value, const string& filename) {
-    loadFromFile(arr, filename);
+    loadFromFileA(arr, filename);
 
     if(index < 0 || index >= arr.size)
     {

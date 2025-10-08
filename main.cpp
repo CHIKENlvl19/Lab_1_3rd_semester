@@ -21,11 +21,15 @@ Command getCommand(const string& cmdStr) {
     if(cmdStr == "SPUSH") return Command::SPUSH;
     if(cmdStr == "SPOP") return Command::SPOP;
     if(cmdStr == "SPRINT") return Command::SPRINT;
+    if(cmdStr == "SSIZE") return Command::SSIZE;
 
     if(cmdStr == "APUSH") return Command::APUSH;
     if(cmdStr == "AINSERT") return Command::AINSERT;
     if(cmdStr == "APRINT") return Command::APRINT;
     if(cmdStr == "ADELETE") return Command::ADELETE;
+    if(cmdStr == "AGET") return Command::AGET;
+    if(cmdStr == "ASWAP") return Command::ASWAP;
+    if(cmdStr == "ASIZE") return Command::ASIZE;
 
     if(cmdStr == "QPUSH") return Command::QPUSH;
     if(cmdStr == "QPOP") return Command::QPOP;
@@ -47,6 +51,10 @@ Command getCommand(const string& cmdStr) {
     if(cmdStr == "ADDTAILDL") return Command::ADDTAILDL;
     if(cmdStr == "ADDAFTERDL") return Command::ADDAFTERDL;
     if(cmdStr == "ADDBEFOREDL") return Command::ADDBEFOREDL;
+    if(cmdStr == "ADDBEFOREDL") return Command::REMOVEHEADDL;
+    if(cmdStr == "ADDBEFOREDL") return Command::REMOVETAILDL;
+    if(cmdStr == "ADDBEFOREDL") return Command::REMOVEBEFOREDL;
+    if(cmdStr == "ADDBEFOREDL") return Command::REMOVEAFTERDL;
     if(cmdStr == "PRINTDL") return Command::PRINTDL;
     if(cmdStr == "BPRINTDL") return Command::BPRINTDL;
     if(cmdStr == "SEARCHBYVALUEDL") return Command::SEARCHBYVALUEDL;
@@ -124,7 +132,7 @@ int main(int argc, char* argv[]) {
             myAVL tree;
 
             loadFromFileAVL(tree, filename);
-            inOrderPrintAVL(tree.root);
+            inOrderPrintAVL(tree.root, 0, 6);
             cout << endl;
             break;
         }
@@ -150,6 +158,13 @@ int main(int argc, char* argv[]) {
             print(st);
             break;
         }
+        case Command::SSIZE: {
+            Stack st;
+
+            loadFromFile(st, filename);
+            cout << size(st);
+            break;
+        }
 
         case Command::APUSH: {
             string value; 
@@ -171,7 +186,7 @@ int main(int argc, char* argv[]) {
         case Command::APRINT: {
             myArray arr;
 
-            loadFromFile(arr, filename);
+            loadFromFileA(arr, filename);
             print(arr);
             break;
         }
@@ -181,6 +196,32 @@ int main(int argc, char* argv[]) {
             myArray arr; 
 
             Delete(arr, index, filename);
+            break;
+        }
+        case Command::AGET: {
+            int index; 
+            ss >> index;
+            myArray arr; 
+
+            loadFromFileA(arr, filename);
+            cout << getElement(arr, index);
+            break;
+        }
+        case Command::ASWAP: {
+            int index;
+            string value;
+            myArray arr;
+            ss >> index >> value;
+
+            loadFromFileA(arr, filename);
+            swapElements(arr, index, value, filename);
+            break;
+        }
+        case Command::ASIZE: {
+            myArray arr;
+
+            loadFromFileA(arr, filename);
+            cout << size(arr);
             break;
         }
 

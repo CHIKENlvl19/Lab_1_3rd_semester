@@ -34,5 +34,5 @@ NodeAVL* insertAVL(NodeAVL* root, int value);
 NodeAVL* deleteNodeAVL(NodeAVL* root, int value);
 NodeAVL* searchAVL(NodeAVL* root, int value);
 
-void inOrderPrintAVL(NodeAVL* root, int space = 0, int indent = 6);
+void inOrderPrintAVL(NodeAVL* root, int space, int indent);
 void cleanAVL(NodeAVL* root);
