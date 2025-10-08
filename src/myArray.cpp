@@ -174,6 +174,7 @@ void Delete(myArray& arr, int index, const string& filename) {
     {
         arr.data[i] = arr.data[i + 1];
     }
+    
     arr.size--;
     saveToFile(arr, filename);
 }

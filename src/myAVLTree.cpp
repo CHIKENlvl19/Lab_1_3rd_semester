@@ -225,16 +225,27 @@ NodeAVL* searchAVL(NodeAVL* root, int value) {
     return searchAVL(root->right, value);
 }
 
-void inOrderPrintAVL(NodeAVL* root) {
-    if(!root)
+void inOrderPrintAVL(NodeAVL* root, int space = 0, int indent = 6) {
+    if (!root)
     {
         return;
     }
 
-    inOrderPrintAVL(root->left);
-    cout << root->data << " ";
-    inOrderPrintAVL(root->right);
+    space += indent;
+
+    inOrderPrintAVL(root->right, space);
+
+    cout << endl;
+    for (int i = indent; i < space; i++)
+    {
+        cout << " ";
+    } 
+    cout << root->data << "(h=" << root->height 
+         << ", bf=" << root->balanceFactor << ")" << endl;
+
+    inOrderPrintAVL(root->left, space);
 }
+
 
 void cleanAVL(NodeAVL* root) {
     if(!root)

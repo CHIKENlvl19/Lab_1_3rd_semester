@@ -356,7 +356,9 @@ void printSL(SL_list& list) {
     cout << "[";
     while(current)
     {
-        cout << current->value; if(current->next) cout << " -> "; current = current->next;
+        cout << current->value;
+        if(current->next) cout << " -> ";
+        current = current->next;
     }
     cout << "]" << endl;
 }
